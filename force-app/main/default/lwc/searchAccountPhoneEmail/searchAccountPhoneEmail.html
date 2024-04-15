@@ -1,0 +1,263 @@
+<template>
+    <lightning-card>
+        <div class="accountSearch" style="background-color:#f3f3f3; padding: 10px; margin-top:-10px;margin-bottom:-10px;">
+            <span class="label" style="font-weight:bold; font-size:14px; margin-left:10px;">
+                Account 
+            </span> 
+        </div>
+        <br/>
+        <br/>
+        <div class="AccountSection">
+            <div class="slds-grid slds-gutters">
+                <div class="slds-col slds-size_1-of-4" style="margin-left:20px;">
+                    <lightning-input type="text" id="accountSearch"
+                        placeholder="Please enter Phone or Email to search" value={Searchtext}
+                        onchange={handleSearchText}></lightning-input>
+
+                        
+                </div>
+                <div class="slds-col" style="margin-top:17px;">
+                    <lightning-button label="Go" onclick={handlesearch}></lightning-button>
+                </div>
+            </div>
+            <div style="margin-top:20px; margin-left:20px;">
+                <lightning-datatable  data={accountList} columns={columns} key-field="Id"
+                    onrowselection={handleRowSelection}></lightning-datatable>
+        
+            </div>
+        </div><br/><br/>
+
+            <!--Account Input Section-->
+            <lightning-layout multiple-rows="true">
+                <lightning-layout-item size="1"></lightning-layout-item>
+                    <lightning-layout-item size="5"> 
+                        <lightning-input variant="label-inline" label="Name" onchange={handleNameChange} value={Account.Name}></lightning-input>
+                    </lightning-layout-item>
+
+                <lightning-layout-item size="1"></lightning-layout-item>
+                <lightning-layout-item size="5">
+                    <lightning-combobox
+                    variant="label-inline"
+                    name="Rating"
+                    label="Rating"
+                    value={Account.Rating}
+                    placeholder="Select Rating"
+                    options={optionRating}
+                    onchange={handleRatingChange} ></lightning-combobox>
+                </lightning-layout-item>
+
+                <lightning-layout-item size="1"></lightning-layout-item>
+                    <lightning-layout-item size="5"> 
+                        <lightning-input variant="label-inline" type="Phone" label="Phone" onchange={handlePhone} value={Account.Phone}></lightning-input>
+                    </lightning-layout-item>
+
+                <lightning-layout-item size="1"></lightning-layout-item>
+                <lightning-layout-item size="5">
+                    <lightning-input variant="label-inline" type="Email" label="Email" onchange={handleEmail} value={Account.Email__c}></lightning-input>
+                </lightning-layout-item>
+
+                <lightning-layout-item size="1"></lightning-layout-item>
+                    <lightning-layout-item size="5"> 
+                        <lightning-combobox
+                        variant="label-inline"
+                        name="Type"
+                        label="Type"
+                        value={Account.Type}
+                        placeholder="Select Type"
+                        options={optionType}
+                        onchange={handleTypeChange} ></lightning-combobox>
+                    </lightning-layout-item>          
+            </lightning-layout>
+            <!--Account Input Section Ends-->
+        <br/><br/>
+        <!--Contact Section-->
+        <div class="contact" style="background-color:#f3f3f3; padding: 10px; margin-top:-10px;margin-bottom:-10px;">
+            <span class="label" style="font-weight:bold; font-size:14px; margin-left:10px;">
+                Contact 
+            </span> 
+        </div>
+         <br/><br/>
+        <lightning-layout multiple-rows="true">           
+               <lightning-layout-item size="1"></lightning-layout-item>
+                <lightning-layout-item size="5">
+                    <lightning-input label="First Name" variant="label-inline"></lightning-input> 
+                </lightning-layout-item>
+
+            <lightning-layout-item size="1"></lightning-layout-item>
+            <lightning-layout-item size="5">
+                <lightning-input label="Last Name" variant="label-inline"></lightning-input>
+            </lightning-layout-item>
+
+            <lightning-layout-item size="1"></lightning-layout-item>
+                <lightning-layout-item size="5"> 
+                    <lightning-combobox
+                        variant="label-inline"
+                        name="Lead Source"
+                        label="leadSource"
+                        placeholder="Select Type"
+                        options={leadsourceOption}
+                        onchange={handleLeadSourceChange} ></lightning-combobox>
+                </lightning-layout-item>    
+                
+                <lightning-layout-item size="1"></lightning-layout-item>
+                <lightning-layout-item size="5"> 
+                    <lightning-combobox
+                        variant="label-inline"
+                        name="Level"
+                        label="Level"
+                        placeholder="Select Level"
+                        options={levelOption}
+                        onchange={handleLeadSourceChange} ></lightning-combobox>
+                </lightning-layout-item> 
+        </lightning-layout>
+        <br/><br/>
+
+        <!--Quote Section-->
+        <div class = 'QuoteSection'>
+            <div class="quotesection" style="background-color:#f3f3f3; padding: 10px; margin-top:-10px;margin-bottom:-10px;">
+                <span class="label" style="font-weight:bold; font-size:14px; margin-left:10px;">
+                    Quote
+                </span>
+            </div>
+            <br/><br/>
+
+            <lightning-layout multiple-rows="true">
+                <lightning-layout-item size="1"></lightning-layout-item>
+                <lightning-layout-item size="5"> 
+                    <lightning-input name="quoteNo" class="quoteNo" label="Quote No."
+                variant="label-inline"
+                    ></lightning-input>  
+                </lightning-layout-item>
+
+            <lightning-layout-item size="1"></lightning-layout-item>
+                    <lightning-layout-item size="5">
+                    <lightning-input type= "date" name="expirationdate" class="expirationdateClass" label="Expiration Date"
+                        variant="label-inline" onchange={handleExpirationDate}></lightning-input>
+            </lightning-layout-item>
+
+            <lightning-layout-item size="1"></lightning-layout-item>
+                <lightning-layout-item size="5">
+                    <lightning-combobox
+                        variant="label-inline"
+                        name="Status"
+                        label="Status"
+                        value={}
+                        placeholder="Select Quote Status"
+                        options={optionQuoteStatus}
+                        onchange={handleQuoteStatusChange} ></lightning-combobox>  
+                    </lightning-layout-item>
+                </lightning-layout> <br/><br/>
+        </div>
+
+        <div style="max-height: 300px;overflow-y: auto;border: 1px solid rgb(201, 201, 201);">
+            <table class="slds-table slds-table_bordered">
+                <thead>
+                    <tr class="headerRow">
+                        <th scope="col" style="width:60px;">
+                            <div class="slds-truncate slds-text-title_caps">ACTION</div>
+                        </th>
+                        <th scope="col" style="min-width:100px;">
+                            <div class="slds-truncate slds-text-title_caps">ITEM</div>
+                        </th>
+                        <th scope="col" style="min-width:100px;">
+                            <div class="slds-truncate slds-text-title_caps">Estimated <br /> Dealer’s
+                                <br />Cost</div>
+                        </th>
+                        <th scope="col" style="min-width:100px;">
+                            <div class="slds-truncate slds-text-title_caps">Margin</div>
+                        </th>
+                        <th scope="col" style="min-width:100px;">
+                            <div class="slds-truncate slds-text-title_caps">QUANTITY</div>
+                        </th>
+                        <th scope="col" style="min-width:100px;">
+                            <div class="slds-truncate slds-text-title_caps">UNIT<br />PRICE</div>
+                        </th>
+                        <th scope="col" style="width:100px;">
+                            <div class="slds-truncate slds-text-title_caps">LINE<br />AMOUNT</div>
+                        </th>
+                        <th scope="col" style="min-width:100px;">
+                            <div class="slds-truncate slds-text-title_caps">Dealer Cost</div>
+                        </th>
+                        <th scope="col" style="min-width:100px;">
+                            <div class="slds-truncate slds-text-title_caps">Cash</div>
+                        </th>
+                        <th scope="col" style="min-width:100px;">
+                            <div class="slds-truncate slds-text-title_caps">Promo</div>
+                        </th>
+                        <th scope="col" style="width:100px;">
+                            <div class="slds-truncate slds-text-title_caps">MSRP</div>
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <template for:each={lineItemsForParticular} for:item="lineItem" for:index="lineIndex">
+                        <tr key={lineItem.LineNumber} class="slds-hint-parent">
+                            <td>
+                                <lightning-button disabled={disableLockFields} label="Delete" slot="actions" data-lineindex={lineIndex}
+                                    onclick={deleteLineStandard}></lightning-button>
+                            </td>
+                            <td data-label="Item">
+                               
+                            </td>
+
+                            <td>
+                                <lightning-formatted-number value={lineItem.Estimate_Dealer_Cost__c}
+                                    minimum-fraction-digits="2"
+                                    maximum-fraction-digits="2"></lightning-formatted-number>
+                            </td>
+                            <td>
+                                <lightning-input style="background-color: yellow;" formatter="percent-fixed"
+                                    type="number" name="DealerMargin" value={lineItem.Dealer_Margin__c}
+                                    step=".01" onchange={handleDealerMarginParticular}
+                                    data-lineindex={lineIndex} variant="label-hidden" disabled={disableLockFields}>
+                                </lightning-input>
+                            </td>
+
+                            <td class="slds-text-align_right">
+                                <lightning-input type="number" name="quantity" value={lineItem.Quantity}
+                                    step=".00001" onchange={handleEnterQuantityStandard}
+                                    data-fieldname="quantity" data-lineindex={lineIndex}
+                                    variant="label-hidden" disabled={disableLockFields}></lightning-input>
+                            </td>
+                            <td>
+                                <lightning-input type="number" name="unitPrice" value={lineItem.UnitPrice}
+                                    step=".01" onchange={handleEnterUnitPriceStandard}
+                                    data-lineindex={lineIndex} variant="label-hidden" minimum-fraction-digits="2" maximum-fraction-digits="2" disabled={disableLockFields}>
+                                </lightning-input>
+
+                            </td>
+                            <td class="slds-text-align_right">
+                                <lightning-formatted-number value={lineItem.TotalPrice}
+                                    minimum-fraction-digits="2"
+                                    maximum-fraction-digits="2"></lightning-formatted-number>
+                            </td>
+
+                            <td>
+                                <lightning-formatted-number value={lineItem.Dealer_Cost__c}
+                                    minimum-fraction-digits="2"
+                                    maximum-fraction-digits="2"></lightning-formatted-number>
+                            </td>
+                            <td>
+                                <lightning-formatted-number value={lineItem.Cash__c}
+                                    minimum-fraction-digits="2"
+                                    maximum-fraction-digits="2"></lightning-formatted-number>
+                            </td>
+                            <td>
+                                <lightning-formatted-number value={lineItem.Promo__c}
+                                    minimum-fraction-digits="2"
+                                    maximum-fraction-digits="2"></lightning-formatted-number>
+                            </td>
+                            <td>
+                                <lightning-formatted-number value={lineItem.MSRP__c}
+                                    minimum-fraction-digits="2"
+                                    maximum-fraction-digits="2"></lightning-formatted-number>
+                            </td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+
+        </div>
+    </lightning-card>
+</template>

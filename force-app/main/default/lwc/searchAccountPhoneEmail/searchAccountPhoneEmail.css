@@ -1,0 +1,17 @@
+/**
+ * Created by cheng on 1/22/2024.
+ */
+ .headerRow th {
+    vertical-align: text-bottom;
+}
+.customTextArea{
+    line-height: 13px;
+}
+.slds-table td {
+    vertical-align: top;
+}
+details > summary {
+    padding: 4px;
+    background-color: #eeeeee;
+    outline: none;
+  }
